@@ -31,6 +31,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/question_2.php">Question 2</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/question_3.php">Question 3</a>
+                        </li>
                     </ul>
                 </div>
             </div>

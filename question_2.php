@@ -22,13 +22,23 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-4">
+                            <div class="col-md-12 mt-4">
                                 <h3 id="title">
-                                    Election result
+                                    Add new polling unit
                                 </h3>
-                                <ol id="electionResults">
-                                    
-                                </ol>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Party</th>
+                                            <th scope="col">Score</th>
+                                            <th scope="col">Polling ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="electionResults">
+                                        
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </form>
@@ -62,8 +72,20 @@
                 type: 'get',
                 success: function(data) {
                     $("#electionResults").empty();
+                    if(data.error) {
+                       $('#electionResults').append(' <tr> <td>There is no recorded result.</td></tr>');
+                    return;
+                    }
                     $.each(data, function(index, result) {
-                        $('#electionResults').append('<li > '+ result.party_abbreviation + ' ' + result.party_score + ' @ polling unit ' + result.polling_unit_uniqueid + '</option>');
+                    
+                        $('#electionResults').append(`
+                        <tr>
+                            <td scope="col">${index}</td>
+                            <td scope="col">${result.party_abbreviation}</td>
+                            <td scope="col">${result.party_score}</td>
+                            <td scope="col">${result.polling_unit_uniqueid}</td>
+                        </tr>
+                        `);
                     })
                 }
             });

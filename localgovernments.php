@@ -18,21 +18,13 @@
         
         $query = "SELECT * FROM announced_pu_results WHERE polling_unit_uniqueid IN (SELECT uniqueid FROM polling_unit WHERE lga_id='$lga')";
         
-        // SELECT * FROM customers WHERE id IN (SELECT DISTINCT customer_id FROM orders WHERE cost > 200);
-        
         $lgaGet = mysqli_query($conn, $query);
         if(mysqli_num_rows($lgaGet) != 0) {
             $returnValue;
             while ($returnValue[] = mysqli_fetch_assoc($lgaGet));
             echo json_encode($returnValue);
         } else {
-            echo json_encode([
-                [
-                    'party_abbreviation' => '',
-                    'party_score' => 'No score',
-                    'polling_unit_uniqueid' => ''
-                ]    
-            ]);
+            echo json_encode(['error' => 'no result found']);
         }
         
     }
